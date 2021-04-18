@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SetAttributesInZip": {
+      "commandName": "Project",
+      "commandLineArgs": "c:\\1\\test.zip 01FF00"
+    }
+  }
+}
