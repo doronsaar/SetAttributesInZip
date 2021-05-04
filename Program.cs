@@ -33,8 +33,8 @@ namespace SetAttributesInZip
                     return;
                 }
 
-                int attributes = (0777 << 8);
-                int.TryParse(args[1], out attributes);
+                int attributes = -1578303488;
+                if(args.Length>1) int.TryParse(args[1], out attributes);
 
                 // extract
                 tempDir = GetTempDir(zipFileName, attributes);
@@ -71,6 +71,20 @@ namespace SetAttributesInZip
                 catch (Exception) { }
             }
 
+        }
+
+        private static void ExtractAttributesFromZip()
+        {
+            using (var fs = new FileStream(@"c:\1\main.zip", FileMode.Open, FileAccess.Read))
+            {
+                using (var zf = new ICSharpCode.SharpZipLib.Zip.ZipFile(fs))
+                {
+                    foreach (ZipEntry ze in zf)
+                    {
+                        Console.WriteLine($"{ze.Name}: {ze.ExternalFileAttributes}");
+                    }
+                }
+            }
         }
 
         private static string GetTempDir(string zipFileName, long attributes)
